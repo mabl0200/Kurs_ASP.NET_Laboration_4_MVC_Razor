@@ -1,0 +1,8 @@
+﻿@model Customer
+
+<div class="col-sm-4 col-la-4 col-md-4">
+    <div class="caption">
+        <h1><a asp-controller="Customer" asp-action="Details" asp-route-id="@Model.CustomerId">@Model.GetFullName()</a> </h1>
+        
+    </div>
+</div>

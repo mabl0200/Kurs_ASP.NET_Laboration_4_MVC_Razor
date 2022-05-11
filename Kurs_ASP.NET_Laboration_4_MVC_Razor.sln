@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kurs_ASP.NET_Laboration_4_MVC_Razor", "Kurs_ASP.NET_Laboration_4_MVC_Razor\Kurs_ASP.NET_Laboration_4_MVC_Razor.csproj", "{421D42CB-9651-4554-97C1-B65D2E238DC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{421D42CB-9651-4554-97C1-B65D2E238DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{421D42CB-9651-4554-97C1-B65D2E238DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{421D42CB-9651-4554-97C1-B65D2E238DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{421D42CB-9651-4554-97C1-B65D2E238DC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67408B3A-29A3-499D-8CAF-0457F61C8F22}
+	EndGlobalSection
+EndGlobal

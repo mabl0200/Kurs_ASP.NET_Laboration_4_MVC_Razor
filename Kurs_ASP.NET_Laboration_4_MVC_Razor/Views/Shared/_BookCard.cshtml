@@ -1,0 +1,12 @@
+﻿@model Book
+
+<div class="col-sm-4 col-la-4 col-md-4">
+    <div class="thumbnail">
+        <img src="@Model.ImageThumbnail" alt="image for book" />
+    </div>
+    <div class="caption">
+        <h1><a asp-controller="Book" asp-action="Details" asp-route-id="@Model.BookId">@Model.Name</a> </h1>
+        <h2>@Model.Author</h2>
+        <h3>@Model.ISBN</h3>
+    </div>
+</div>

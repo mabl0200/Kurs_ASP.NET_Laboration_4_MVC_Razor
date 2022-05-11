@@ -1,0 +1,10 @@
+﻿@model AvailibleBooksViewModel
+
+<h2>Availible Books in the Library</h2>
+
+<div class="row">
+    @foreach (var book in Model.Books)
+    {
+        <partial name="_BookCard" model="book"/>
+    }
+</div>
