@@ -5,6 +5,20 @@
     <h3 class="pull-right">@Model.Email</h3>
     <h4>Borrowed Books</h4>
 </div>
+<div>
+    @foreach (var book in Model.BorrowedBooks)
+    {
+        <div>
+            <img src="@book.Book.ImageThumbnail"/>
+        </div>
+        <h4>Titel: @book.Book.Name</h4>
+        <h4>Författare: @book.Book.Author</h4>
+        <h5>Lånad: @book.StartOfLoanPeriod</h5>
+        <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
+        <h5>Återlämnad: @book.IsReturned</h5>
+    
+    }
+</div>
 
 <div>
     <button type="button" name="edit">Editera</button>

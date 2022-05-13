@@ -9,6 +9,6 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
     {
         IEnumerable<BorrowedBook> GetAllLoans { get; }
 
-        void AddLoan(BorrowedBook borrowedBook);
+        Task<BorrowedBook> AddLoan(BorrowedBook borrowedBook);
     }
 }

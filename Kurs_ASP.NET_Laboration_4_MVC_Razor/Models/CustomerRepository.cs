@@ -17,7 +17,11 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
         public IEnumerable<Customer> GetAllCustomers {
             get
             {
-                return _labb4DbContext.Customers.OrderBy(l => l.LastName).ThenBy(f => f.FirstName);
+                return _labb4DbContext.Customers
+                    .OrderBy(l => l.LastName)
+                    .ThenBy(f => f.FirstName)
+                    .Include(b => b.BorrowedBooks)
+                    .ThenInclude(b => b.Book);
             } 
         }
         
@@ -41,7 +45,10 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
 
         public Customer GetCustomer(int id)
         {
-            return _labb4DbContext.Customers.Include(b => b.BorrowedBooks).FirstOrDefault(i => i.CustomerId == id);
+            return _labb4DbContext.Customers
+                .Include(b => b.BorrowedBooks)
+                .ThenInclude(b => b.Book)
+                .FirstOrDefault(i => i.CustomerId == id);
         }
 
         public Task<Customer> UpdateCustomer(Customer customerToUpdate)

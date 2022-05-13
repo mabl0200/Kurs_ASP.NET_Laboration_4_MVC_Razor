@@ -18,13 +18,16 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
         {
             get
             {
-                return _labb4DbContext.BorrowedBooks;
+                return _labb4DbContext.BorrowedBooks
+                    .Include(b => b.Book);
             }
         }
 
-        public void AddLoan(BorrowedBook borrowedBook)
+        public async Task<BorrowedBook> AddLoan(BorrowedBook borrowedBook)
         {
-            throw new NotImplementedException();
+            var loan = await _labb4DbContext.BorrowedBooks.AddAsync(borrowedBook);
+            await _labb4DbContext.SaveChangesAsync();
+            return loan.Entity;
         }
     }
 }

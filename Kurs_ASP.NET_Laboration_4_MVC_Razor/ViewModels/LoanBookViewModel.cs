@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.ViewModels
 {
-    public class CustomerBookViewModel
+    public class LoanBookViewModel
     {
-        public IEnumerable<BorrowedBook> Books { get; set; }
-
-        public Customer Customer { get; set; }
+        public IEnumerable<Customer> Customers { get; set; }
+        public IEnumerable<Book> Books { get; set; }
     }
 }

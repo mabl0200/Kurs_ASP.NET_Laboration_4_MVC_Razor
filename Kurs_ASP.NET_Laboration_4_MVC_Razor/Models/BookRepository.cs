@@ -36,5 +36,30 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
         {
             return _labb4DbContext.Books.FirstOrDefault(b => b.BookId == id);
         }
+
+        public Book UpdateBook(Book book)
+        {
+            var result = _labb4DbContext.Books.Find(book.BookId);
+
+            if (result != null)
+            {
+                if (result.IsAvailable == true)
+                {
+                    result.IsAvailable = false;
+                    _labb4DbContext.Books.Update(result);
+                    _labb4DbContext.SaveChanges();
+                    return result;
+                }
+                else if (book.IsAvailable == false)
+                {
+                    result.IsAvailable = true;
+                    _labb4DbContext.Books.Update(result);
+                    _labb4DbContext.SaveChanges();
+                    return result;
+                }
+            }
+            return book;
+            
+        }
     }
 }

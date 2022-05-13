@@ -11,6 +11,8 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
 
         IEnumerable<Book> GetAvailibleBooks { get; }
 
+        Book UpdateBook(Book book);
+
         Book GetBookById(int id);
     }
 }
