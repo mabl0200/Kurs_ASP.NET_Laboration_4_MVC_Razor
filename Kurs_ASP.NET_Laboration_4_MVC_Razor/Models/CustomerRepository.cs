@@ -33,9 +33,11 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
             return customer.Entity;
         }
 
-        public void DeleteCustomer(Customer customerToDelete)
+        public Customer DeleteCustomer(Customer customerToDelete)
         {
-            throw new NotImplementedException();
+            _labb4DbContext.Customers.Remove(customerToDelete);
+            _labb4DbContext.SaveChanges();
+            return customerToDelete;
         }
 
         public IEnumerable<BorrowedBook> GetBooks(int id)
@@ -51,9 +53,18 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
                 .FirstOrDefault(i => i.CustomerId == id);
         }
 
-        public Task<Customer> UpdateCustomer(Customer customerToUpdate)
+        public Customer UpdateCustomer(Customer customerToUpdate)
         {
-            throw new NotImplementedException();
+            var customer = _labb4DbContext.Customers.FirstOrDefault(c => c.CustomerId == customerToUpdate.CustomerId);
+            if (customer != null)
+            {
+                customer.FirstName = customerToUpdate.FirstName;
+                customer.LastName = customerToUpdate.LastName;
+                customer.Email = customerToUpdate.Email;
+                _labb4DbContext.Customers.Update(customer);
+                _labb4DbContext.SaveChanges();
+            }
+            return customer;
         }
     }
 }

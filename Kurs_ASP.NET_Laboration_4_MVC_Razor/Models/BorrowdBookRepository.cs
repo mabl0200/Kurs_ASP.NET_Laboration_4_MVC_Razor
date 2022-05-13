@@ -19,7 +19,8 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
             get
             {
                 return _labb4DbContext.BorrowedBooks
-                    .Include(b => b.Book);
+                    .Include(b => b.Book)
+                    .Include(c => c.Customer);
             }
         }
 
@@ -28,6 +29,25 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
             var loan = await _labb4DbContext.BorrowedBooks.AddAsync(borrowedBook);
             await _labb4DbContext.SaveChangesAsync();
             return loan.Entity;
+        }
+        public BorrowedBook GetLoanById(int id)
+        {
+            return _labb4DbContext.BorrowedBooks.FirstOrDefault(l => l.BorrowedBookId == id);
+        }
+
+        public BorrowedBook UpdateLoan(BorrowedBook borrowedBook)
+        {
+            var loan = _labb4DbContext.BorrowedBooks.FirstOrDefault(loan => loan.BorrowedBookId == borrowedBook.BorrowedBookId);
+            if (loan != null)
+            {
+                
+                loan.IsReturned = true;
+                loan.EndOfLoanPeriod = loan.EndOfLoanPeriod;
+                _labb4DbContext.BorrowedBooks.Update(loan);
+                _labb4DbContext.SaveChanges();
+                
+            }
+            return loan;
         }
     }
 }

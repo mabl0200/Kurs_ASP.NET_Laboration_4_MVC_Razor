@@ -16,9 +16,9 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Models
         //Vi vill kunna editera, skapa och ta bort en Customer
         Task<Customer> AddCustomer(Customer newCustomer);
 
-        Task<Customer> UpdateCustomer(Customer customerToUpdate);
+        Customer UpdateCustomer(Customer customerToUpdate);
 
-        void DeleteCustomer(Customer customerToDelete);
+        Customer DeleteCustomer(Customer customerToDelete);
         
 
         //Vi vill se alla böcker som en Customer har lånat

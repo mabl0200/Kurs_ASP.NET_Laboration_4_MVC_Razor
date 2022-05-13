@@ -6,24 +6,44 @@
     <h4>Borrowed Books</h4>
 </div>
 <div>
+    <h4>Aktiva lån</h4>
     @foreach (var book in Model.BorrowedBooks)
     {
-        <div>
-            <img src="@book.Book.ImageThumbnail"/>
-        </div>
-        <h4>Titel: @book.Book.Name</h4>
-        <h4>Författare: @book.Book.Author</h4>
-        <h5>Lånad: @book.StartOfLoanPeriod</h5>
-        <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
-        <h5>Återlämnad: @book.IsReturned</h5>
-    
+        if (book.IsReturned == false)
+        {
+            <div>
+                <img src="@book.Book.ImageThumbnail" />
+            </div>
+            <h4><a asp-controller="LoanBook" asp-action="ReturnBook" asp-route-id="@book.BorrowedBookId">Titel: @book.Book.Name</a></h4>
+            <h4>Författare: @book.Book.Author</h4>
+            <h5>Lånad: @book.StartOfLoanPeriod</h5>
+            <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
+        }
+    }
+</div>
+<div>
+    <h4>Gamla lån</h4>
+    @foreach (var book in Model.BorrowedBooks)
+    {
+        if (book.IsReturned == true)
+        {
+            <div>
+                <img src="@book.Book.ImageThumbnail" />
+            </div>
+            <h4>Titel: @book.Book.Name</h4>
+            <h4>Författare: @book.Book.Author</h4>
+            <h5>Lånad: @book.StartOfLoanPeriod</h5>
+            <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
+            <h5>Återlämnad: @book.IsReturned</h5>
+
+        }
     }
 </div>
 
-<div>
-    <button type="button" name="edit">Editera</button>
-</div>
+<form>
+    <button asp-controller="Customer" asp-action="EditForm" asp-route-id="@Model.CustomerId" type="submit" name="edit">Editera</button>
+</form>
 
-<div>
-    <button type="button" name="delete">Radera</button>
-</div>
+<form>
+    <button asp-controller="Customer" asp-action="DeleteForm" asp-route-id="@Model.CustomerId" type="Submit" name="delete">Radera</button>
+</form>

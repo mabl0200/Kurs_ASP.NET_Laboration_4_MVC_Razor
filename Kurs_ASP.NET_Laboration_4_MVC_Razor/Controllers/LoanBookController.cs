@@ -23,16 +23,38 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
         }
         public IActionResult Index()
         {
+             
             return View();
         }
         public IActionResult Form()
         {
+            //var borrowdBooks = _borrowedBookRepository.GetAllLoans;
             return View();
             //var newList = new LoanBookViewModel();
             //newList.Customers = _customerRepository.GetAllCustomers;
             //newList.Books = _bookRepository.GetAll;
 
             //return View(newList);
+        }
+        public IActionResult ReturnBook(int id)
+        {
+            var chosenBook = _borrowedBookRepository.GetLoanById(id);
+            if (chosenBook == null)
+            {
+                return NotFound();
+            }
+            return View(chosenBook);
+        }
+        public IActionResult BookReturned(Book book)
+        {
+            var returned = _bookRepository.GetBookById(book.BookId);
+            return View(returned);
+        }
+        public IActionResult BookLoan(Book book)
+        {
+            var loaned = _bookRepository.GetBookById(book.BookId);
+            return View(loaned);
+
         }
         public IActionResult Details(int id)
         {
@@ -59,10 +81,41 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
                 {
                     return BadRequest();
                 }
-                var newLoan = await _borrowedBookRepository.AddLoan(borrowedBook);
-                var updateBook = _bookRepository.GetBookById(borrowedBook.BookId);
+                var book = _bookRepository.GetBookById(borrowedBook.BookId);
+                if (book.IsAvailable == true)
+                {
+                    var newLoan = await _borrowedBookRepository.AddLoan(borrowedBook);
+                    var updateBook = _bookRepository.GetBookById(borrowedBook.BookId);
+                    _bookRepository.UpdateBook(updateBook);
+                    return RedirectToAction("BookLoan", updateBook);
+                }
+                return RedirectToAction("Form");
+                //var newLoan = await _borrowedBookRepository.AddLoan(borrowedBook);
+                //var updateBook = _bookRepository.GetBookById(borrowedBook.BookId);
+                //_bookRepository.UpdateBook(updateBook);
+                //return RedirectToAction("BookLoan", updateBook);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error, failed to Create a new object to Database...");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ReturnLoan(BorrowedBook borrowedBook)
+        {
+            try
+            {
+                if (borrowedBook == null)
+                {
+                    return BadRequest();
+                }
+                var loan = _borrowedBookRepository.GetLoanById(borrowedBook.BorrowedBookId);
+                var returnLoan = _borrowedBookRepository.UpdateLoan(loan);
+                var updateBook = _bookRepository.GetBookById(returnLoan.BookId);
                 _bookRepository.UpdateBook(updateBook);
-                return newLoan;
+                return RedirectToAction("BookReturned", updateBook);
             }
             catch (Exception)
             {
@@ -73,7 +126,7 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
         [Route("LoanBook/Test")]
         public string Test(BorrowedBook borrowedBook)
         {
-            return $"Låntagare: {borrowedBook.CustomerId} Bok: {borrowedBook.BookId} Start: {borrowedBook.StartOfLoanPeriod} Slut: {borrowedBook.EndOfLoanPeriod} {borrowedBook.IsReturned}";
+            return $"Låntagare: {borrowedBook.CustomerId} Bok: {borrowedBook.BookId} Start: {borrowedBook.StartOfLoanPeriod} Slut: {borrowedBook.EndOfLoanPeriod} Bokåterlämnad: {borrowedBook.IsReturned}";
         }
     }
 }
