@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var loan in Model.BorrowedBooks)
+        @foreach (var loan in Model.BorrowedBooks.OrderBy(b => b.StartOfLoanPeriod))
         {
             <tr>
                 <td>@loan.Book.Name</td>

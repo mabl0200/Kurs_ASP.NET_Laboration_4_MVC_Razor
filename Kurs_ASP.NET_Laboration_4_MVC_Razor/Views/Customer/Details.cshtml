@@ -1,44 +1,96 @@
 ﻿@model Customer
 
 <div class="caption-full">
-    <h1>@Model.GetFullName()</h1>
-    <h3 class="pull-right">@Model.Email</h3>
-    <h4>Borrowed Books</h4>
+    <h1>Låntagare: @Model.GetFullName()</h1>
+    <h3 class="pull-right">Email: @Model.Email</h3>
 </div>
-<div>
-    <h4>Aktiva lån</h4>
-    @foreach (var book in Model.BorrowedBooks)
-    {
-        if (book.IsReturned == false)
+<h4>Aktiva lån</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Bild</th>
+            <th>Titel</th>
+            <th>Författare</th>
+            <th>Lånetid</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.BorrowedBooks)
         {
-            <div>
-                <img src="@book.Book.ImageThumbnail" />
-            </div>
-            <h4><a asp-controller="LoanBook" asp-action="ReturnBook" asp-route-id="@book.BorrowedBookId">Titel: @book.Book.Name</a></h4>
-            <h4>Författare: @book.Book.Author</h4>
-            <h5>Lånad: @book.StartOfLoanPeriod</h5>
-            <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
+            if (book.IsReturned == false)
+            {
+                <tr>
+                    <td><img src="@book.Book.ImageThumbnail" /></td>
+                    <td><a asp-controller="LoanBook" asp-action="ReturnBook" asp-route-id="@book.BorrowedBookId">Titel: @book.Book.Name</a></td>
+                    <td>@book.Book.Author</td>
+                    <td>@book.StartOfLoanPeriod - @book.EndOfLoanPeriod</td>
+                </tr>
+            }
         }
-    }
-</div>
-<div>
-    <h4>Gamla lån</h4>
-    @foreach (var book in Model.BorrowedBooks)
-    {
-        if (book.IsReturned == true)
-        {
-            <div>
-                <img src="@book.Book.ImageThumbnail" />
-            </div>
-            <h4>Titel: @book.Book.Name</h4>
-            <h4>Författare: @book.Book.Author</h4>
-            <h5>Lånad: @book.StartOfLoanPeriod</h5>
-            <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
-            <h5>Återlämnad: @book.IsReturned</h5>
 
+    </tbody>
+</table>
+<h4>Gamla lån</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Bild</th>
+            <th>Titel</th>
+            <th>Författare</th>
+            <th>Lånetid</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.BorrowedBooks)
+        {
+            if (book.IsReturned == true)
+            {
+                <tr>
+                    <td><img src="@book.Book.ImageThumbnail" /></td>
+                    <td>@book.Book.Name</td>
+                    <td>@book.Book.Author</td>
+                    <td>@book.StartOfLoanPeriod - @book.EndOfLoanPeriod</td>
+                </tr>
+            }
         }
-    }
-</div>
+    </tbody>
+
+</table>
+
+@*<div>
+
+        @foreach (var book in Model.BorrowedBooks)
+        {
+            if (book.IsReturned == false)
+            {
+                <div>
+                    <img src="@book.Book.ImageThumbnail" />
+                </div>
+                <h4><a asp-controller="LoanBook" asp-action="ReturnBook" asp-route-id="@book.BorrowedBookId">Titel: @book.Book.Name</a></h4>
+                <h4>Författare: @book.Book.Author</h4>
+                <h5>Lånad: @book.StartOfLoanPeriod</h5>
+                <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
+            }
+        }
+    </div>*@
+@*<div>
+        <h4>Gamla lån</h4>
+        @foreach (var book in Model.BorrowedBooks)
+        {
+            if (book.IsReturned == true)
+            {
+                <div>
+                    <img src="@book.Book.ImageThumbnail" />
+                </div>
+                <h4>Titel: @book.Book.Name</h4>
+                <h4>Författare: @book.Book.Author</h4>
+                <h5>Lånad: @book.StartOfLoanPeriod</h5>
+                <h5>Återlämnas: @book.EndOfLoanPeriod</h5>
+                <h5>Återlämnad: @book.IsReturned</h5>
+
+            }
+        }
+    </div>*@
 
 <form>
     <button asp-controller="Customer" asp-action="EditForm" asp-route-id="@Model.CustomerId" type="submit" name="edit">Editera</button>
