@@ -51,6 +51,10 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
         {
             return View(customer);
         }
+        public IActionResult Added(Customer customer)
+        {
+            return View(customer);
+        }
         public IActionResult EditForm(int id)
         {
             var customerToEdit = _customerRepository.GetCustomer(id);
@@ -112,20 +116,13 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
                 }
                 var newCustomer = await _customerRepository.AddCustomer(customer);
 
-                Details(newCustomer.CustomerId);
-                return newCustomer;
+                return RedirectToAction("Added", newCustomer);
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error, failed to Create a new object to Database...");
             }
-        }
-
-        [Route("Customer/Test")]
-        public string Test(Customer customer)
-        {
-            return $"Förnamn: {customer.FirstName}, Efternamn: {customer.LastName}, Email: {customer.Email}";
         }
     }
 }

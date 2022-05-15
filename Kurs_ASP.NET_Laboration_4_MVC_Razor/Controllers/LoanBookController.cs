@@ -28,13 +28,7 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
         }
         public IActionResult Form()
         {
-            //var borrowdBooks = _borrowedBookRepository.GetAllLoans;
             return View();
-            //var newList = new LoanBookViewModel();
-            //newList.Customers = _customerRepository.GetAllCustomers;
-            //newList.Books = _bookRepository.GetAll;
-
-            //return View(newList);
         }
         public IActionResult ReturnBook(int id)
         {
