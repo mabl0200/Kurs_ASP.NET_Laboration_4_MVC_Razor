@@ -8,7 +8,7 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.ViewModels
 {
     public class CustomerBookViewModel
     {
-        public IEnumerable<BorrowedBook> Books { get; set; }
+        public Book Book { get; set; }
 
         public Customer Customer { get; set; }
     }

@@ -10,5 +10,6 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.ViewModels
     {
         public IEnumerable<Customer> Customers { get; set; }
         public IEnumerable<Book> Books { get; set; }
+        public IEnumerable<BorrowedBook> BorrowedBooks { get; set; }
     }
 }

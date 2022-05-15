@@ -1,0 +1,33 @@
+﻿@model LoanBookViewModel
+
+<h1>Alla lån</h1>
+
+<table>
+    <thead>
+        <tr>
+            @*<th>Bild</th>*@
+            <th>Titel</th>
+            <th>Författare</th>
+            <th>Lånetid</th>
+            <th>Låntagare</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var loan in Model.BorrowedBooks)
+        {
+            <tr>
+                @*<td><img src="@loan.Book.ImageThumbnail" /> </td>*@
+                <td>@loan.Book.Name</td>
+                <td>@loan.Book.Author</td>
+                <td>@loan.StartOfLoanPeriod - @loan.EndOfLoanPeriod</td>
+                <td>@loan.Customer.GetFullName()</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<form>
+    <button asp-controller="LoanBook" asp-action="Form" type="submit">Låna bok</button>
+</form>
+

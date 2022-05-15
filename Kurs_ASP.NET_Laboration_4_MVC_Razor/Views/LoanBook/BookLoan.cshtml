@@ -1,12 +1,11 @@
-﻿@model Book
+﻿@model CustomerBookViewModel
 
 <h1>Bok lånad</h1>
 <div class="thumbnail">
-    <img src="@Model.ImageThumbnail" alt="Book Image" />
+    <img src="@Model.Book.ImageThumbnail" alt="Book Image" />
     <div class="caption-full">
-        <h1>@Model.Name</h1>
-        <h3 class="pull-right">@Model.Author</h3>
-        <h4>@Model.IsAvailable</h4>
-        <h3 class="#">@Model.ISBN</h3>
+        <h1>@Model.Book.Name</h1>
+        <h3 class="pull-right">@Model.Book.Author</h3>
+        <h3>Låntagare: @Model.Customer.GetFullName()</h3>
     </div>
 </div>

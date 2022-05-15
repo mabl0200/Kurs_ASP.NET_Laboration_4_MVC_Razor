@@ -1,8 +1,7 @@
-﻿@*@model LoanBookViewModel*@
-@model BorrowedBook
+﻿@model BorrowedBook
 
 <form asp-controller="LoanBook" asp-action="Add" method="post">
-    
+
     <label for="bookId">Bok</label>
     <input asp-for="BookId" type="number" id="bookId" name="BookId" />
     <br />
@@ -16,23 +15,3 @@
     <input asp-for="EndOfLoanPeriod" type="date" id="endDate" name="EndOfLoanPeriod" value="{startDate} + 7" />
     <button type="submit">Lägg till</button>
 </form>
-
-@*<form>
-    <label for="customers">Välj användare: </label>
-    <select name="customers">
-        @foreach (var customer in @Model.Customers)
-        {
-            <option>@customer.GetFullName()</option>
-        }
-    </select>
-    <label for="books">Välj bok: </label>
-    <select name="books">
-        @foreach (var book in @Model.Books)
-        {
-            if (book.IsAvailable == true)
-            {
-                <option>@book.Name</option>
-            }
-        }
-    </select>
-</form>*@

@@ -44,25 +44,45 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
             var returned = _bookRepository.GetBookById(book.BookId);
             return View(returned);
         }
-        public IActionResult BookLoan(Book book)
+        public IActionResult BookLoan(BorrowedBook borrowedBook)
         {
-            var loaned = _bookRepository.GetBookById(book.BookId);
-            return View(loaned);
+
+            var bookLoan = new CustomerBookViewModel
+            {
+                Customer = _customerRepository.GetCustomer(borrowedBook.CustomerId),
+                Book = _bookRepository.GetBookById(borrowedBook.BookId)
+            };
+            //var loaned = _bookRepository.GetBookById(book.BookId);
+            return View(bookLoan);
 
         }
-        public IActionResult Details(int id)
-        {
-            var CustomerBookViewModel = new CustomerBookViewModel
-            {
-                Customer = _customerRepository.GetCustomer(id),
-                Books = _customerRepository.GetBooks(id)
-            };
+        //public IActionResult Details(int id)
+        //{
+        //    var CustomerBookViewModel = new CustomerBookViewModel
+        //    {
+        //        Customer = _customerRepository.GetCustomer(id),
+        //        Books = _customerRepository.GetBooks(id)
+        //    };
             
-            if (CustomerBookViewModel == null)
+        //    if (CustomerBookViewModel == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(CustomerBookViewModel);
+        //}
+        public IActionResult AllLoans()
+        {
+            var loanBookViewModel = new LoanBookViewModel
+            {
+                Customers = _customerRepository.GetAllCustomers,
+                Books = _bookRepository.GetAll,
+                BorrowedBooks = _borrowedBookRepository.GetAllLoans
+            };
+            if (loanBookViewModel == null)
             {
                 return NotFound();
             }
-            return View(CustomerBookViewModel);
+            return View(loanBookViewModel);
         }
 
         [HttpPost]
@@ -80,14 +100,11 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
                 {
                     var newLoan = await _borrowedBookRepository.AddLoan(borrowedBook);
                     var updateBook = _bookRepository.GetBookById(borrowedBook.BookId);
+                    var loantaker = _customerRepository.GetCustomer(borrowedBook.CustomerId);
                     _bookRepository.UpdateBook(updateBook);
-                    return RedirectToAction("BookLoan", updateBook);
+                    return RedirectToAction("BookLoan", newLoan);
                 }
                 return RedirectToAction("Form");
-                //var newLoan = await _borrowedBookRepository.AddLoan(borrowedBook);
-                //var updateBook = _bookRepository.GetBookById(borrowedBook.BookId);
-                //_bookRepository.UpdateBook(updateBook);
-                //return RedirectToAction("BookLoan", updateBook);
             }
             catch (Exception)
             {
