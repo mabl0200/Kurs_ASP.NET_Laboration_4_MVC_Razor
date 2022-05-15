@@ -5,7 +5,6 @@
 <table>
     <thead>
         <tr>
-            @*<th>Bild</th>*@
             <th>Titel</th>
             <th>Författare</th>
             <th>Lånetid</th>
@@ -16,7 +15,6 @@
         @foreach (var loan in Model.BorrowedBooks)
         {
             <tr>
-                @*<td><img src="@loan.Book.ImageThumbnail" /> </td>*@
                 <td>@loan.Book.Name</td>
                 <td>@loan.Book.Author</td>
                 <td>@loan.StartOfLoanPeriod - @loan.EndOfLoanPeriod</td>

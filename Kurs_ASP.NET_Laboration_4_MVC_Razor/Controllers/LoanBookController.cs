@@ -52,24 +52,9 @@ namespace Kurs_ASP.NET_Laboration_4_MVC_Razor.Controllers
                 Customer = _customerRepository.GetCustomer(borrowedBook.CustomerId),
                 Book = _bookRepository.GetBookById(borrowedBook.BookId)
             };
-            //var loaned = _bookRepository.GetBookById(book.BookId);
             return View(bookLoan);
 
         }
-        //public IActionResult Details(int id)
-        //{
-        //    var CustomerBookViewModel = new CustomerBookViewModel
-        //    {
-        //        Customer = _customerRepository.GetCustomer(id),
-        //        Books = _customerRepository.GetBooks(id)
-        //    };
-            
-        //    if (CustomerBookViewModel == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(CustomerBookViewModel);
-        //}
         public IActionResult AllLoans()
         {
             var loanBookViewModel = new LoanBookViewModel
