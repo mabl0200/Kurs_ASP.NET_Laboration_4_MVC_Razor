@@ -1,10 +1,30 @@
 ﻿@model CustomerListViewModel
 
-<h1>Customers</h1>
-@foreach (var customer in Model.Customers)
+<h1>Låntagare</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Namn</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.CustomerId</td>
+                <td><partial name="_CustomerCard" model="customer" /></td>
+                <td>@customer.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*@foreach (var customer in Model.Customers)
 {
     <partial name="_CustomerCard" model="customer"/>
-}
+}*@
 
 <form>
     <button asp-controller="Customer" asp-action="Form" type="submit"> Lägg till en ny användare</button>

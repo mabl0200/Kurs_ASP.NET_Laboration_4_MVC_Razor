@@ -1,10 +1,25 @@
 ﻿@model AvailibleBooksViewModel
 
-<h2>Availible Books in the Library</h2>
+<h2>Tillgängliga böcker i biblioteket</h2>
 
-<div class="row">
-    @foreach (var book in Model.Books)
-    {
-        <partial name="_BookCard" model="book"/>
-    }
-</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Bild</th>
+            <th>Titel</th>
+            <th>Författare</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td><img src="@book.ImageThumbnail" /> </td>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
